@@ -210,10 +210,20 @@ spec:
             httpGet:
               path: /health
               port: http
+              {{- if and .Values.api.enableBasicAuth .Values.api.basicAuthUsername .Values.api.basicAuthPassword }}
+              httpHeaders:
+              - name: Authorization
+                value: {{ printf "Basic %s" (printf "%s:%s" .Values.api.basicAuthUsername .Values.api.basicAuthPassword | b64enc) }}
+              {{- end }}
           readinessProbe:
             httpGet:
               path: /health
               port: http
+              {{- if and .Values.api.enableBasicAuth .Values.api.basicAuthUsername .Values.api.basicAuthPassword }}
+              httpHeaders:
+              - name: Authorization
+                value: {{ printf "Basic %s" (printf "%s:%s" .Values.api.basicAuthUsername .Values.api.basicAuthPassword | b64enc) }}
+              {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
