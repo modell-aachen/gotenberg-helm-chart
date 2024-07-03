@@ -233,6 +233,14 @@ prometheus:
   disableCollect: false
   # -- Disable the route logging
   disableRouterLogging: false
+  # -- PodMonitor to scrape metrics from each gotenberg pod
+  podMonitor:
+    # -- Enable creation of PodMonitor resource, requires monitoring.coreos.com/v1 CRDs to be installed
+    enabled: false
+    # -- Set the interval for collecting modules' metrics (default 1s)
+    interval: ""
+    # -- Set the labels for the PodMonitor
+    labels: {}
 
 # The Logging module provides a logger to Gotenberg.
 # https://gotenberg.dev/docs/configuration#logging
