@@ -240,12 +240,10 @@ spec:
       topologySpreadConstraints:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.volumes }}
       volumes:
-        {{- toYaml . | nindent 8 }}
-        {{- if .Values.api.tlsSecretName }}
+        {{- toYaml .Values.volume | nindent 8 }}
+        {{- with .Values.api.tlsSecretName }}
         - name: tls
           secret:
-            secretName: {{ .Values.api.tlsSecretName }}
+            secretName: {{ . }}
         {{- end }}
-      {{- end }}
